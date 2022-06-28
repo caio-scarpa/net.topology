@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+    <head>
+        <link rel="stylesheet" href=css/next.css>
+        <script src="js/next.js"></script>
+        <style>
+            table{
+                font-family: Arial, Helvetica, sans-serif;
+                border: 3px solid #000000;
+                width: calc(100% - 20px);
+                text-align: left;
+                border-collapse: collapse;
+                margin: 10px;
+            }
+            table td, table th {
+                border: 1px solid #000000;
+                padding: 5px 4px;
+            }
+            table tbody td {
+                font-size: 13px;
+            }
+            table tr:nth-child(even) {
+                background: #EAEAEA;
+            }
+            table thead {
+                background: #CFCFCF;
+                background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+                background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+                background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+                border-bottom: 3px solid #000000;
+            }
+            table thead th {
+                font-size: 15px;
+                font-weight: bold;
+                color: #000000;
+                text-align: left;
+            }
+            table tfoot td {
+                font-size: 14px;
+            }
+        </style>
+    </head>
+    <body>
+        <button onclick="saveButton()">Save</button>
+        <div id="topology-container"></div>
+        <div style="position:absolute; right:0;" id="table"></div>
+        <script src="data.js"></script>
+        <!-- <script src="topology.js"></script> -->
+        <script src="app.js"></script>
+        <script>
+            function createTable(tableData, className) {
+
+                var table = document.createElement('table');
+                table.className = className;
+                var tableHead = document.createElement('thead');
+                var tableBody = document.createElement('tbody');
+
+                tableData.forEach(function(rowData, index) {
+
+                    var row = document.createElement('tr');
+                    if (index === 0) {
+
+                        rowData.forEach(function(cellData) {
+                            var cell = document.createElement('th');
+                            cell.appendChild(document.createTextNode(cellData));
+                            row.appendChild(cell);
+                        });
+                        tableHead.appendChild(row);
+                    } else {
+
+                        rowData.forEach(function(cellData) {
+                            var cell = document.createElement('td');
+                            cell.appendChild(document.createTextNode(cellData));
+                            row.appendChild(cell);
+                        });
+                        tableBody.appendChild(row);
+                    };       
+                });
+
+                table.appendChild(tableHead);
+                table.appendChild(tableBody);
+                document.getElementById("table").appendChild(table);
+            };
+
+            createTable(aps, "ap-neigh-table");
+            createTable(hosts, "host-neigh-table");
+        </script>
+    </body>
+</html>
